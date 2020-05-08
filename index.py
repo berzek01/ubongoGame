@@ -12,7 +12,7 @@ yellow = (255, 255, 0)
 purple = (255, 0, 255)
 brown = (128, 64, 0)
 
-long  = 50
+long  = 20
 
 info = {}
 info['pause'] = False
@@ -40,6 +40,10 @@ bPlay = pygame.transform.scale(bPlay, (240, 60))
 bHowToPlay = pygame.image.load("img/btn1.png")
 bHowToPlay = pygame.transform.scale(bHowToPlay, (240, 60))
 
+
+tablero = pygame.image.load("img/tablero.png")
+tablero = pygame.transform.scale(tablero, (900, 450))
+
 # MENU
 font_game = pygame.font.SysFont("Comic Sans MS", 100)
 menu_title = font_game.render("Ubongo", True, white)
@@ -51,6 +55,7 @@ menu_tutorial = font_menu.render("How to play", True, white)
 area_play = menu_play.get_rect()
 area_tutorial = menu_tutorial.get_rect()
 
+area_bPlay= bPlay.get_rect();
 
 def initial():
     area_play.x = 260
@@ -60,12 +65,12 @@ def initial():
 
 
 def gems():
-    pygame.draw.circle(window, red, (120, 120), 20)
-    pygame.draw.circle(window, blue, (120, 170), 20)
-    pygame.draw.circle(window, green, (120, 220), 20)
-    pygame.draw.circle(window, yellow, (120, 270), 20)
-    pygame.draw.circle(window, purple, (120, 320), 20)
-    pygame.draw.circle(window, brown, (120, 370), 20)
+    pygame.draw.circle(window, red,   (120, 165), 12)
+    pygame.draw.circle(window, blue,  (120, 205), 12)
+    pygame.draw.circle(window, green, (120, 240), 12)
+    pygame.draw.circle(window, yellow,(120, 280), 12)
+    pygame.draw.circle(window, purple,(120, 320), 12)
+    pygame.draw.circle(window, brown, (120, 360), 12)
 
 
 def P1(X,Y):
@@ -128,8 +133,7 @@ def menu():
     window.blit(menu_title, (260, 20))
     window.blit(menu_play, (400, 300))
     window.blit(menu_tutorial, (340, 350))
-    gems()
-    #P12(300,300)
+
 
     
 level = 1
@@ -144,6 +148,22 @@ def game():
     text_time = font_game.render(str(info['time']), True, white)
     window.blit(text_time, (400, 10))
 
+    #Herramientas
+    window.blit(tablero,(20,35))
+    gems()
+    P1(20,420)
+    P2(120,420)
+    P3(220,420)
+    P4(320,420)
+    P5(420,420)
+    P6(520,420)
+    P7(620,420)
+    P8(720,420)
+    P9(20,510)
+    P10(120,510)
+    P11(220,510)
+    P12(320,510)
+    
     if not info['pause']:
         info['miliseconds'] += 1
     if(info['miliseconds'] == 10):
@@ -172,7 +192,7 @@ def command():
             if info['status'] == 3 and event.key == pygame.K_RETURN:
                 info['pause'] = not info['pause']
         if event.type == pygame.MOUSEBUTTONUP:
-            if area_play.collidepoint(event.pos):
+            if area_play.collidepoint(event.pos) or area_bPlay.collidepoint(event.pos):
                 info['status'] = 3
             if area_tutorial.collidepoint(event.pos):
                 info['status'] = 2
