@@ -1,9 +1,12 @@
 import pygame
+from random import randint
 # CONSTANTES
 WIDTH = 900
 HEIGHT = 600
 
 # colors
+def getRandomColor():
+    return (randint(0,255),randint(0,255),randint(0,255))
 white = ((255,255,255))
 blue = ((0,0,255))
 green = ((0,255,0))
@@ -62,13 +65,12 @@ bHowToPlay = pygame.transform.scale(bHowToPlay, (240, 60))
 
 tablero = pygame.image.load("img/tableroMejorado.png")
 tablero = pygame.transform.scale(tablero, (850, 300))
-#Tablero anterior tablero = pygame.transform.scale(tablero, (900, 450))
 
 # MENU
 font_game = pygame.font.SysFont("Comic Sans MS", 100)
 menu_title = font_game.render("Ubongo", True, white)
 
-font_menu = pygame.font.SysFont("Comic Sans MS", 40)
+font_menu = pygame.font.SysFont("Comic Sans MS", 30)
 menu_play = font_menu.render("Play", True, white)
 menu_tutorial = font_menu.render("How to play", True, white)
 
@@ -78,15 +80,17 @@ area_tutorial = menu_tutorial.get_rect()
 area_bPlay= bPlay.get_rect();
 
 def initial():
-    area_play.x = 260
-    area_play.y = 300
+    area_play.x = 415
+    area_play.y = 304
+    area_bPlay.x = 320
+    area_bPlay.y = 300
     area_tutorial.x = 260
     area_tutorial.y = 350
 
 
-def players():
-    pygame.draw.circle(window, green, (120, 168), 12)
-    pygame.draw.circle(window, yellow,(120, 203), 12)
+def players(color1,color2):
+    pygame.draw.circle(window, color1, (120, 168), 12)
+    pygame.draw.circle(window, color2,(120, 203), 12)
 
 
 
@@ -143,13 +147,12 @@ def P12(X,Y):
                                         (X+long, Y+(long*2)), (X, Y+(long*2))))
 def menu():
 
-    
     window.blit(background, (0, 0))
     window.blit(bPlay, (320, 300))
-    window.blit(bHowToPlay,(320,355))
+    window.blit(bHowToPlay,(320,365))
     window.blit(menu_title, (260, 20))
-    window.blit(menu_play, (400, 300))
-    window.blit(menu_tutorial, (340, 350))
+    window.blit(menu_play, (415, 304))
+    window.blit(menu_tutorial, (350, 370))
 
 
     
@@ -157,7 +160,7 @@ level = 1
 font_game = pygame.font.SysFont("Comic Sans MS", 20)
 
 
-def game():
+def game(color1,color2):
     window.blit(background, (0, 0))
     text_level = font_game.render(
         "Turno {}".format(level), True, white)
@@ -167,7 +170,7 @@ def game():
 
     #Herramientas
     window.blit(tablero,(20,35))
-    players()
+    players(color1,color2)
     P1(20,420)
     P2(120,420)
     P3(220,420)
@@ -208,7 +211,7 @@ def command():
                 return False
             if info['status'] == 3 and event.key == pygame.K_RETURN:
                 info['pause'] = not info['pause']
-        if event.type == pygame.MOUSEBUTTONUP:
+        if event.type == pygame.MOUSEBUTTONDOWN:
             if area_play.collidepoint(event.pos) or area_bPlay.collidepoint(event.pos):
                 info['status'] = 3
             if area_tutorial.collidepoint(event.pos):
@@ -217,7 +220,8 @@ def command():
 
 
 initial()
-
+color1 = getRandomColor();
+color2 = getRandomColor();
 playing = True
 while playing:
     clock.tick(60)  # fps
@@ -230,7 +234,7 @@ while playing:
     if info['status'] == 2:
         menu()
     elif info['status'] == 3:
-        game()
+        game(color1,color2)
     elif info['status'] == 4:
         end()
     pygame.display.update()
