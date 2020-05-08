@@ -4,13 +4,32 @@ WIDTH = 900
 HEIGHT = 600
 
 # colors
-white = (255, 255, 255)
-red = (255, 0, 0)
-blue = (0, 0, 255)
-green = (0, 255, 0)
-yellow = (255, 255, 0)
-purple = (255, 0, 255)
-brown = (128, 64, 0)
+white = ((255,255,255))
+blue = ((0,0,255))
+green = ((0,255,0))
+red = ((255,0,0))
+black = ((0,0,0))
+orange = ((255,100,10))
+yellow = ((255,255,0))
+blue_green = ((0,255,170))
+marroon = ((115,0,0))
+lime = ((180,255,100))
+pink = ((255,100,180))
+purple = ((240,0,255))
+gray = ((127,127,127))
+magenta = ((255,0,230))
+brown = ((100,40,0))
+forest_green = ((0,50,0))
+navy_blue = ((0,0,100))
+rust = ((210,150,75))
+dandilion_yellow = ((255,200,0))
+highlighter = ((255,255,100))
+sky_blue = ((0,255,255))
+light_gray = ((200,200,200))
+dark_gray = ((50,50,50))
+tan = ((230,220,170))
+coffee_brown =((200,190,140))
+moon_glow = ((235,245,255))
 
 long  = 20
 
@@ -41,8 +60,9 @@ bHowToPlay = pygame.image.load("img/btn1.png")
 bHowToPlay = pygame.transform.scale(bHowToPlay, (240, 60))
 
 
-tablero = pygame.image.load("img/tablero.png")
-tablero = pygame.transform.scale(tablero, (900, 450))
+tablero = pygame.image.load("img/tableroMejorado.png")
+tablero = pygame.transform.scale(tablero, (850, 300))
+#Tablero anterior tablero = pygame.transform.scale(tablero, (900, 450))
 
 # MENU
 font_game = pygame.font.SysFont("Comic Sans MS", 100)
@@ -64,13 +84,10 @@ def initial():
     area_tutorial.y = 350
 
 
-def gems():
-    pygame.draw.circle(window, red,   (120, 165), 12)
-    pygame.draw.circle(window, blue,  (120, 205), 12)
-    pygame.draw.circle(window, green, (120, 240), 12)
-    pygame.draw.circle(window, yellow,(120, 280), 12)
-    pygame.draw.circle(window, purple,(120, 320), 12)
-    pygame.draw.circle(window, brown, (120, 360), 12)
+def players():
+    pygame.draw.circle(window, green, (120, 168), 12)
+    pygame.draw.circle(window, yellow,(120, 203), 12)
+
 
 
 def P1(X,Y):
@@ -79,49 +96,49 @@ def P1(X,Y):
                                             (X+(long*2), Y), (X+(3*long), Y),
                                             (X+(long*3), Y+long), (X, Y + long) ))
 def P2(X,Y):
-    pygame.draw.polygon(window, white,   ((X, Y), (X+(long*4),Y),
+    pygame.draw.polygon(window, red,   ((X, Y), (X+(long*4),Y),
                                         (X+(long*4), Y + long), (X, Y+long)))
 def P3(X,Y):
-    pygame.draw.polygon(window, white, ( (X, Y), (X+(long*2), Y),
+    pygame.draw.polygon(window, blue, ( (X, Y), (X+(long*2), Y),
                                          (X+(long*2), Y+(long*2)), ( X+(long*3), Y+(long*2)),
                                          (X+(long*3), Y+(long*3)), ( X+long,  Y+(long*3)),
                                          (X+long, Y+long), (X, Y+long)))
 def P4(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y), (X+(long*2), Y),
+    pygame.draw.polygon(window, green, ((X, Y), (X+(long*2), Y),
                                         (X+(long*2), Y+(long)), (X+(long), Y+(long)),
                                         (X+(long), Y+(long*3)), (X+(long), Y+(long*3)),
                                         (X, Y+(long*3))))
 def P5(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y), (X+(long*2), Y),
+    pygame.draw.polygon(window, purple, ((X, Y), (X+(long*2), Y),
                                          (X+(long*2), Y+(long*2)), (X, Y+(long*2))))
 def P6(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y), (X+long, Y),
+    pygame.draw.polygon(window, brown, ((X, Y), (X+long, Y),
                                         (X + long, Y+(long*2)), (X, Y+(long*2))))
 def P7(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y), (X+(long*4), Y),
+    pygame.draw.polygon(window, blue_green, ((X, Y), (X+(long*4), Y),
                                         (X+(long*4), Y+long), (X+(long*3), Y+long),
                                         (X+(long*3), Y+(2*long)), (X+(long*2), Y+(2*long)),
                                         (X+(long*2), Y+(2*long)), (X+(2*long), Y+long),
                                         (X,Y+long)))
 def P8(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y), (X+(long*3), Y),
+    pygame.draw.polygon(window, lime, ((X, Y), (X+(long*3), Y),
                                         (X+(long*3), Y+(long*2)), (X+long, Y+(long*2)),
                                         (X+long, Y+long), (X, Y+long)))
 
 def P9(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y+long), (X+long, Y+long),
+    pygame.draw.polygon(window, dark_gray, ((X, Y+long), (X+long, Y+long),
                                         (X+long, Y), (X+(long*3), Y),(X+(long*3), Y+long),
                                         (X+(long*2), Y+long), (X+(long*2), Y+(long*2)),
                                         (X, Y+(long*2))))
 def P10(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y), (X+(long*3), Y),
+    pygame.draw.polygon(window, tan, ((X, Y), (X+(long*3), Y),
                                         (X+(long*3), Y+long), (X, Y+long)))
 def P11(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y), (X+(long*4), Y),
+    pygame.draw.polygon(window, orange, ((X, Y), (X+(long*4), Y),
                                         (X+(long*4), Y+(long*2)), (X+(long*3), Y+(long*2)),
                                         (X+(long*3), Y+long), (X, Y+long)))
 def P12(X,Y):
-    pygame.draw.polygon(window, white, ((X, Y), (X+(long*2), Y),
+    pygame.draw.polygon(window, moon_glow, ((X, Y), (X+(long*2), Y),
                                         (X+(long*2), Y+long), (X+long, Y+long),
                                         (X+long, Y+(long*2)), (X, Y+(long*2))))
 def menu():
@@ -150,7 +167,7 @@ def game():
 
     #Herramientas
     window.blit(tablero,(20,35))
-    gems()
+    players()
     P1(20,420)
     P2(120,420)
     P3(220,420)
