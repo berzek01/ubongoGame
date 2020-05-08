@@ -12,6 +12,8 @@ yellow = (255, 255, 0)
 purple = (255, 0, 255)
 brown = (128, 64, 0)
 
+long  = 50
+
 info = {}
 info['pause'] = False
 info['win'] = False
@@ -31,8 +33,12 @@ clock = pygame.time.Clock()
 background = pygame.image.load("img/fondo2.jpeg").convert()
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
-button = pygame.image.load("img/btn3.png").convert()
-button = pygame.transform.scale(button, (240, 60))
+bPlay = pygame.image.load("img/btn1.png")
+bPlay = pygame.transform.scale(bPlay, (240, 60))
+
+
+bHowToPlay = pygame.image.load("img/btn1.png")
+bHowToPlay = pygame.transform.scale(bHowToPlay, (240, 60))
 
 # MENU
 font_game = pygame.font.SysFont("Comic Sans MS", 100)
@@ -62,16 +68,70 @@ def gems():
     pygame.draw.circle(window, brown, (120, 370), 20)
 
 
+def P1(X,Y):
+    pygame.draw.polygon(window, white, (      (X, Y), (X + long, Y),
+                                            (X + long, Y-long), (X+(2*long), Y-long),
+                                            (X+(long*2), Y), (X+(3*long), Y),
+                                            (X+(long*3), Y+long), (X, Y + long) ))
+def P2(X,Y):
+    pygame.draw.polygon(window, white,   ((X, Y), (X+(long*4),Y),
+                                        (X+(long*4), Y + long), (X, Y+long)))
+def P3(X,Y):
+    pygame.draw.polygon(window, white, ( (X, Y), (X+(long*2), Y),
+                                         (X+(long*2), Y+(long*2)), ( X+(long*3), Y+(long*2)),
+                                         (X+(long*3), Y+(long*3)), ( X+long,  Y+(long*3)),
+                                         (X+long, Y+long), (X, Y+long)))
+def P4(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y), (X+(long*2), Y),
+                                        (X+(long*2), Y+(long)), (X+(long), Y+(long)),
+                                        (X+(long), Y+(long*3)), (X+(long), Y+(long*3)),
+                                        (X, Y+(long*3))))
+def P5(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y), (X+(long*2), Y),
+                                         (X+(long*2), Y+(long*2)), (X, Y+(long*2))))
+def P6(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y), (X+long, Y),
+                                        (X + long, Y+(long*2)), (X, Y+(long*2))))
+def P7(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y), (X+(long*4), Y),
+                                        (X+(long*4), Y+long), (X+(long*3), Y+long),
+                                        (X+(long*3), Y+(2*long)), (X+(long*2), Y+(2*long)),
+                                        (X+(long*2), Y+(2*long)), (X+(2*long), Y+long),
+                                        (X,Y+long)))
+def P8(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y), (X+(long*3), Y),
+                                        (X+(long*3), Y+(long*2)), (X+long, Y+(long*2)),
+                                        (X+long, Y+long), (X, Y+long)))
+
+def P9(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y+long), (X+long, Y+long),
+                                        (X+long, Y), (X+(long*3), Y),(X+(long*3), Y+long),
+                                        (X+(long*2), Y+long), (X+(long*2), Y+(long*2)),
+                                        (X, Y+(long*2))))
+def P10(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y), (X+(long*3), Y),
+                                        (X+(long*3), Y+long), (X, Y+long)))
+def P11(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y), (X+(long*4), Y),
+                                        (X+(long*4), Y+(long*2)), (X+(long*3), Y+(long*2)),
+                                        (X+(long*3), Y+long), (X, Y+long)))
+def P12(X,Y):
+    pygame.draw.polygon(window, white, ((X, Y), (X+(long*2), Y),
+                                        (X+(long*2), Y+long), (X+long, Y+long),
+                                        (X+long, Y+(long*2)), (X, Y+(long*2))))
 def menu():
+
+    
     window.blit(background, (0, 0))
+    window.blit(bPlay, (320, 300))
+    window.blit(bHowToPlay,(320,355))
     window.blit(menu_title, (260, 20))
-    # window.blit(button, (320, 300))
     window.blit(menu_play, (400, 300))
     window.blit(menu_tutorial, (340, 350))
     gems()
-    # pygame.draw.polygon(window, white, ((250, 250), (290, 250), (290, 290), (330, 290)))
+    #P12(300,300)
 
-
+    
 level = 1
 font_game = pygame.font.SysFont("Comic Sans MS", 20)
 
@@ -120,6 +180,7 @@ def command():
 
 
 initial()
+
 playing = True
 while playing:
     clock.tick(60)  # fps
