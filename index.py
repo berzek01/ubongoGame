@@ -1,10 +1,12 @@
 import pygame
 from random import randint
+
+
 # CONSTANTES
 WIDTH = 900
 HEIGHT = 600
 
-# colors
+# COLORS
 def getRandomColor():
     return (randint(0,255),randint(0,255),randint(0,255))
 white = ((255,255,255))
@@ -40,13 +42,11 @@ info = {}
 info['pause'] = False
 info['win'] = False
 info['status'] = 1
-info['time'] = 120
+info['time'] = 5
 info['miliseconds'] = 0
-# STATUS:
-# MENU      1
-# TUTORIAL  2
-# PLAYING   3
-# END       4
+info['turno'] = 1
+info['carta'] = 1
+info['printed_gema'] = False
 
 pygame.init()
 window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
@@ -58,10 +58,8 @@ background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 bPlay = pygame.image.load("img/btn1.png")
 bPlay = pygame.transform.scale(bPlay, (240, 60))
 
-
 bHowToPlay = pygame.image.load("img/btn1.png")
 bHowToPlay = pygame.transform.scale(bHowToPlay, (240, 60))
-
 
 tablero = pygame.image.load("img/tableroMejorado.png")
 tablero = pygame.transform.scale(tablero, (850, 300))
@@ -76,7 +74,6 @@ menu_tutorial = font_menu.render("How to play", True, white)
 
 area_play = menu_play.get_rect()
 area_tutorial = menu_tutorial.get_rect()
-
 area_bPlay= bPlay.get_rect();
 
 def initial():
@@ -88,11 +85,11 @@ def initial():
     area_tutorial.y = 350
 
 
-def players(color1,color2):
+def players(color1, color2):
     pygame.draw.circle(window, color1, (120, 168), 12)
     pygame.draw.circle(window, color2,(120, 203), 12)
 
-
+# PIEZAS
 
 def P1(X,Y):
     pygame.draw.polygon(window, white, (      (X, Y), (X + long, Y),
@@ -145,32 +142,98 @@ def P12(X,Y):
     pygame.draw.polygon(window, moon_glow, ((X, Y), (X+(long*2), Y),
                                         (X+(long*2), Y+long), (X+long, Y+long),
                                         (X+long, Y+(long*2)), (X, Y+(long*2))))
-def menu():
 
-    window.blit(background, (0, 0))
+
+font_game = pygame.font.SysFont("Comic Sans MS", 20)
+
+
+def command():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                return False
+            if (info['status'] == 3 or info['status'] == 4) and event.key == pygame.K_RETURN:
+                info['pause'] = not info['pause']
+            # TEMPORAL
+            if info['status'] == 3 and event.key == pygame.K_p:
+                info['status'] = 4
+            if (info['status'] == 3 or info['status'] == 4) and event.key == pygame.K_t:
+                info['turno'] += 1
+            # FIN TEMPORAL
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if area_play.collidepoint(event.pos) or area_bPlay.collidepoint(event.pos):
+                info['status'] = 2
+            if area_tutorial.collidepoint(event.pos):
+                info['status'] = 11
+    return True
+
+# ==================================================================================== #
+# ============================= FUNCIONES DE JUEGO =================================== #
+# ==================================================================================== #
+
+def menu():
     window.blit(bPlay, (320, 300))
     window.blit(bHowToPlay,(320,365))
     window.blit(menu_title, (260, 20))
     window.blit(menu_play, (415, 304))
     window.blit(menu_tutorial, (350, 370))
 
+dadoPosX = int((WIDTH - 188) / 2)
+dadoPosY = int((HEIGHT - 177) / 2)
+def print_dado():
+    dado = pygame.image.load("img/dado/cara" + str(randint(1,6)) + ".png").convert_alpha()
+    window.blit(dado, (dadoPosX, dadoPosY))
+    pygame.display.update()
+    contador()
 
-    
-level = 1
-font_game = pygame.font.SysFont("Comic Sans MS", 20)
 
 
-def game(color1,color2):
-    window.blit(background, (0, 0))
+# CARTAS
+def print_card(num):
+    card = pygame.image.load("img/cards/card" + num + ".png").convert_alpha()
+    card = pygame.transform.scale(card, (520, 290))
+    window.blit(card,(170, 80))
+
+# GEMAS
+def print_gema(num, x, y):
+    gema = pygame.image.load("img/gemas/gema{}.png".format(num)).convert_alpha()
+    gema = pygame.transform.scale(gema, (50, 50))
+    window.blit(gema,(x, y))
+
+def contador():
+    if info['time'] == 0:
+        if info['status'] == 3: # PUZLE
+            info['time'] = 120
+        elif info['status'] == 4: # GEMAS
+            info['status'] = 2 if info['turno'] < 9 else 5
+            info['turno'] += 1
+            info['time'] = 5
+        elif info['status'] == 2: # DADO
+            info['status'] = 3
+            info['time'] = 120
+            info['carta'] = str(randint(1,5))
+            pygame.time.delay(2000)
+    if not info['pause']:
+        info['miliseconds'] += 1
+    if(info['miliseconds'] == 10):
+        info['time'] -= 1
+        info['miliseconds'] = 0
+
+
+def moverPieza(pieza):
+    mouseX, mouseY = pygame.mouse.get_pos()
+
+
+def puzle():
     text_level = font_game.render(
-        "Turno {}".format(level), True, white)
+        "Turno {}".format(info["turno"]), True, white)
     window.blit(text_level, (10, 10))
     text_time = font_game.render(str(info['time']), True, white)
     window.blit(text_time, (400, 10))
-
-    #Herramientas
-    window.blit(tablero,(20,35))
-    players(color1,color2)
+    print_card(info['carta'])
     P1(20,420)
     P2(120,420)
     P3(220,420)
@@ -183,58 +246,86 @@ def game(color1,color2):
     P10(120,510)
     P11(220,510)
     P12(320,510)
-    
-    if not info['pause']:
-        info['miliseconds'] += 1
-    if(info['miliseconds'] == 10):
-        info['time'] -= 1
-        info['miliseconds'] = 0
+    contador()
 
 
-def end():
-    font_game = pygame.font.SysFont("Comic Sans MS", 100)
-    window.blit(background, (0, 0))
-    if info['win']:
-        text_level = font_game.render("You Won", True, white)
-
+gemasJugador = []
+def gemas_aleatorias():
+    if not info['printed_gema']:
+        info['printed_gema'] = True
+        ngemas = randint(0, 10)
+        for i in range(ngemas):
+            n = randint(1, 15)
+            x = randint(70, 830)
+            y = randint(360, 500)
+            gemasJugador.append((n, (x, y)))
     else:
-        text_level = font_game.render("You Lose", True, white)
-    window.blit(text_level, (100, 100))
+        for i in range(len(gemasJugador)):
+            print_gema(gemasJugador[i][0], gemasJugador[i][1][0], gemasJugador[i][1][1])
+
+def gemas(color1,color2):
+    text_level = font_game.render(
+        "Turno {}".format(info["turno"]), True, white)
+    window.blit(text_level, (10, 10))
+    text_time = font_game.render(str(info['time']), True, white)
+    window.blit(text_time, (400, 10))
+
+    #Gemas
+    gemas_aleatorias()
+
+    #Herramientas
+    window.blit(tablero,(20,35))
+    players(color1,color2)
+    contador()
+
+def resultado():
+    titulo = pygame.font.SysFont("Comic Sans MS", 100).render("Resultados", True, white)
+    window.blit(titulo, (190, 20))
+
+    tu = pygame.font.SysFont("Comic Sans MS", 50).render("Tu", True, white)
+    window.blit(tu, (100, 150))
+    tu_resultado = pygame.font.SysFont("Comic Sans MS", 25).render("15 gemasdel mismo color", True, white)
+    window.blit(tu_resultado, (50, 500))
+
+    pc = pygame.font.SysFont("Comic Sans MS", 50).render("Rival", True, white)
+    window.blit(pc, (600, 150))
+    pc_resultado = pygame.font.SysFont("Comic Sans MS", 25).render("12 gemas del mismo color", True, white)
+    window.blit(pc_resultado, (550, 500))
+
+    gemas_aleatorias()
+    
 
 
-def command():
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            return False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                return False
-            if info['status'] == 3 and event.key == pygame.K_RETURN:
-                info['pause'] = not info['pause']
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if area_play.collidepoint(event.pos) or area_bPlay.collidepoint(event.pos):
-                info['status'] = 3
-            if area_tutorial.collidepoint(event.pos):
-                info['status'] = 2
-    return True
-
+# ==================================================================================== #
+# ==================================== JUEGO ========================================= #
+# ==================================================================================== #
 
 initial()
 color1 = getRandomColor();
 color2 = getRandomColor();
+
 playing = True
 while playing:
+    # LOGICA GENERAL
     clock.tick(60)  # fps
     playing = command()
-    if info['time'] == 0:
-        info['status'] = 4
-        info['win'] = False
-    if info['status'] == 1:
+    window.blit(background, (0, 0))
+
+    # LOGICA DEL JUEGO
+    if info['status'] == 1: # MENU
         menu()
-    if info['status'] == 2:
+    elif info['status'] == 11: # TUTORIAL
         menu()
-    elif info['status'] == 3:
-        game(color1,color2)
-    elif info['status'] == 4:
-        end()
+    elif info['status'] == 2: # DADO
+        print_dado()
+    elif info['status'] == 3: # PUZLE
+        puzle()
+    elif info['status'] == 4: # GEMAS
+        gemas(color1,color2)
+    elif info['status'] == 5: # RESULTADO
+        resultado()
+
+    # estado = font_game.render(
+    #     "Estado {}".format(info["status"]), True, white)
+    # window.blit(estado, (800, 10))
     pygame.display.update()
