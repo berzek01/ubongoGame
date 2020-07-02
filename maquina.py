@@ -2,13 +2,14 @@ solucionCache = []
 piezas = []
 piezasSolucion = [] # Array de piezas colocadas
 solucion = []
+piezaGuardada = []
 
 if existe solucion en cache:
 	return solucionCache
 def resolver():
 	if len(piezasSolucion) > 0:
 		if movimientoValido(): # Verifica la matriz solución contra la ultima pieza solucion guardada
-			piezas.pop(0) # se tiene que volver a agregar en el backtraking (VERIFICAR)
+			piezaGuardada=piezas.pop(0) # se tiene que volver a agregar en el backtraking (VERIFICAR)
 			actualizarSolucion() # Agrega la ultima pieza de la lista piezas solucion a la matriz solución
 		else:
 			return
@@ -21,7 +22,7 @@ def resolver():
 				colocarPieza()
 				resolver()
 				sacarPieza()
-				rotarPieza()
+				rotarPieza() #rota de forma antihoraria
 			voltearPieza()
 	print("No existe solución")
 
@@ -35,3 +36,15 @@ def colocarPieza():
 
 def sacarPieza():
 	piezasSolucion.pop()
+
+def rotarPieza(matriz):
+	rotada=[]
+	for i in range(len(matriz[0])):
+		rotada.append([])
+		for j in range(len(matriz)):
+			rotada[i].append(matriz[len(matriz)-1-j][i])
+	return rotada
+
+def voltearPieza(matriz):
+    matriz.reverse()
+    return matriz
