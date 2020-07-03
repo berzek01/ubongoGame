@@ -2,7 +2,6 @@ solucionCache = []
 piezas = []
 piezasSolucion = [] # Array de piezas colocadas
 solucion = []
-piezaGuardada = []
 
 if existe solucion en cache:
 	return solucionCache
