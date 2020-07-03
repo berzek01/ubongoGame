@@ -1,5 +1,5 @@
-from Piece import board
-from Piece import pieces
+from cards import board
+from cards import pieces
 
 def rotate(piece):
 	piece_rotate = []
