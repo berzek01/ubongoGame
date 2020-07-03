@@ -1,7 +1,6 @@
 import pygame
 from random import randint
 
-
 # CONSTANTES
 WIDTH = 900
 HEIGHT = 600
@@ -9,6 +8,7 @@ HEIGHT = 600
 # COLORS
 def getRandomColor():
     return (randint(0,255),randint(0,255),randint(0,255))
+
 white = ((255,255,255))
 blue = ((0,0,255))
 green = ((0,255,0))
@@ -38,15 +38,7 @@ moon_glow = ((235,245,255))
 
 long  = 20
 
-info = {}
-info['pause'] = False
-info['win'] = False
-info['status'] = 1
-info['time'] = 5
-info['miliseconds'] = 0
-info['turno'] = 1
-info['carta'] = 1
-info['printed_gema'] = False
+
 
 pygame.init()
 window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
@@ -91,61 +83,71 @@ def players(color1, color2):
 
 # PIEZAS
 
-def P1(X,Y):
-    pygame.draw.polygon(window, white, (      (X, Y), (X + long, Y),
-                                            (X + long, Y-long), (X+(2*long), Y-long),
-                                            (X+(long*2), Y), (X+(3*long), Y),
-                                            (X+(long*3), Y+long), (X, Y + long) ))
-def P2(X,Y):
-    pygame.draw.polygon(window, red,   ((X, Y), (X+(long*4),Y),
-                                        (X+(long*4), Y + long), (X, Y+long)))
-def P3(X,Y):
-    pygame.draw.polygon(window, blue, ( (X, Y), (X+(long*2), Y),
-                                         (X+(long*2), Y+(long*2)), ( X+(long*3), Y+(long*2)),
-                                         (X+(long*3), Y+(long*3)), ( X+long,  Y+(long*3)),
-                                         (X+long, Y+long), (X, Y+long)))
-def P4(X,Y):
-    pygame.draw.polygon(window, green, ((X, Y), (X+(long*2), Y),
-                                        (X+(long*2), Y+(long)), (X+(long), Y+(long)),
-                                        (X+(long), Y+(long*3)), (X+(long), Y+(long*3)),
-                                        (X, Y+(long*3))))
-def P5(X,Y):
-    pygame.draw.polygon(window, purple, ((X, Y), (X+(long*2), Y),
-                                         (X+(long*2), Y+(long*2)), (X, Y+(long*2))))
-def P6(X,Y):
-    pygame.draw.polygon(window, brown, ((X, Y), (X+long, Y),
-                                        (X + long, Y+(long*2)), (X, Y+(long*2))))
-def P7(X,Y):
-    pygame.draw.polygon(window, blue_green, ((X, Y), (X+(long*4), Y),
-                                        (X+(long*4), Y+long), (X+(long*3), Y+long),
-                                        (X+(long*3), Y+(2*long)), (X+(long*2), Y+(2*long)),
-                                        (X+(long*2), Y+(2*long)), (X+(2*long), Y+long),
-                                        (X,Y+long)))
-def P8(X,Y):
-    pygame.draw.polygon(window, lime, ((X, Y), (X+(long*3), Y),
-                                        (X+(long*3), Y+(long*2)), (X+long, Y+(long*2)),
-                                        (X+long, Y+long), (X, Y+long)))
+# def P1(X,Y):
+#     pygame.draw.polygon(window, white, (      (X, Y), (X + long, Y),
+#                                             (X + long, Y-long), (X+(2*long), Y-long),
+#                                             (X+(long*2), Y), (X+(3*long), Y),
+#                                             (X+(long*3), Y+long), (X, Y + long) ))
+# def P2(X,Y):
+#     pygame.draw.polygon(window, red,   ((X, Y), (X+(long*4),Y),
+#                                         (X+(long*4), Y + long), (X, Y+long)))
+# def P3(X,Y):
+#     pygame.draw.polygon(window, blue, ( (X, Y), (X+(long*2), Y),
+#                                          (X+(long*2), Y+(long*2)), ( X+(long*3), Y+(long*2)),
+#                                          (X+(long*3), Y+(long*3)), ( X+long,  Y+(long*3)),
+#                                          (X+long, Y+long), (X, Y+long)))
+# def P4(X,Y):
+#     pygame.draw.polygon(window, green, ((X, Y), (X+(long*2), Y),
+#                                         (X+(long*2), Y+(long)), (X+(long), Y+(long)),
+#                                         (X+(long), Y+(long*3)), (X+(long), Y+(long*3)),
+#                                         (X, Y+(long*3))))
+# def P5(X,Y):
+#     pygame.draw.polygon(window, purple, ((X, Y), (X+(long*2), Y),
+#                                          (X+(long*2), Y+(long*2)), (X, Y+(long*2))))
+# def P6(X,Y):
+#     pygame.draw.polygon(window, brown, ((X, Y), (X+long, Y),
+#                                         (X + long, Y+(long*2)), (X, Y+(long*2))))
+# def P7(X,Y):
+#     pygame.draw.polygon(window, blue_green, ((X, Y), (X+(long*4), Y),
+#                                         (X+(long*4), Y+long), (X+(long*3), Y+long),
+#                                         (X+(long*3), Y+(2*long)), (X+(long*2), Y+(2*long)),
+#                                         (X+(long*2), Y+(2*long)), (X+(2*long), Y+long),
+#                                         (X,Y+long)))
+# def P8(X,Y):
+#     pygame.draw.polygon(window, lime, ((X, Y), (X+(long*3), Y),
+#                                         (X+(long*3), Y+(long*2)), (X+long, Y+(long*2)),
+#                                         (X+long, Y+long), (X, Y+long)))
 
-def P9(X,Y):
-    pygame.draw.polygon(window, dark_gray, ((X, Y+long), (X+long, Y+long),
-                                        (X+long, Y), (X+(long*3), Y),(X+(long*3), Y+long),
-                                        (X+(long*2), Y+long), (X+(long*2), Y+(long*2)),
-                                        (X, Y+(long*2))))
-def P10(X,Y):
-    pygame.draw.polygon(window, tan, ((X, Y), (X+(long*3), Y),
-                                        (X+(long*3), Y+long), (X, Y+long)))
-def P11(X,Y):
-    pygame.draw.polygon(window, orange, ((X, Y), (X+(long*4), Y),
-                                        (X+(long*4), Y+(long*2)), (X+(long*3), Y+(long*2)),
-                                        (X+(long*3), Y+long), (X, Y+long)))
-def P12(X,Y):
-    pygame.draw.polygon(window, moon_glow, ((X, Y), (X+(long*2), Y),
-                                        (X+(long*2), Y+long), (X+long, Y+long),
-                                        (X+long, Y+(long*2)), (X, Y+(long*2))))
+# def P9(X,Y):
+#     pygame.draw.polygon(window, dark_gray, ((X, Y+long), (X+long, Y+long),
+#                                         (X+long, Y), (X+(long*3), Y),(X+(long*3), Y+long),
+#                                         (X+(long*2), Y+long), (X+(long*2), Y+(long*2)),
+#                                         (X, Y+(long*2))))
+# def P10(X,Y):
+#     pygame.draw.polygon(window, tan, ((X, Y), (X+(long*3), Y),
+#                                         (X+(long*3), Y+long), (X, Y+long)))
+# def P11(X,Y):
+#     pygame.draw.polygon(window, orange, ((X, Y), (X+(long*4), Y),
+#                                         (X+(long*4), Y+(long*2)), (X+(long*3), Y+(long*2)),
+#                                         (X+(long*3), Y+long), (X, Y+long)))
+# def P12(X,Y):
+#     pygame.draw.polygon(window, moon_glow, ((X, Y), (X+(long*2), Y),
+#                                         (X+(long*2), Y+long), (X+long, Y+long),
+#                                         (X+long, Y+(long*2)), (X, Y+(long*2))))
 
 
 font_game = pygame.font.SysFont("Comic Sans MS", 20)
 
+info = {}
+info['pause'] = False
+info['win'] = False
+info['status'] = 1
+info['time'] = 5
+info['miliseconds'] = 0
+info['turno'] = 1
+info['carta'] = 1
+info['printed_gema'] = False
+info['dado'] = None
 
 def command():
     for event in pygame.event.get():
@@ -184,14 +186,14 @@ def menu():
 dadoPosX = int((WIDTH - 188) / 2)
 dadoPosY = int((HEIGHT - 177) / 2)
 def print_dado():
-    dado = pygame.image.load("img/dado/cara" + str(randint(1,6)) + ".png").convert_alpha()
+    info['dado'] = str(randint(1,6))
+    dado = pygame.image.load("img/dado/cara" + info['dado'] + ".png").convert_alpha()
     window.blit(dado, (dadoPosX, dadoPosY))
     pygame.display.update()
     contador()
 
 
-
-# CARTAS
+# CARDS
 def print_card(num):
     card = pygame.image.load("img/cards/card" + num + ".png").convert_alpha()
     card = pygame.transform.scale(card, (520, 290))
@@ -228,24 +230,24 @@ def moverPieza(pieza):
 
 
 def puzle():
-    text_level = font_game.render(
-        "Turno {}".format(info["turno"]), True, white)
+    text_level = font_game.render("Turno {}".format(info["turno"]), True, white)
     window.blit(text_level, (10, 10))
     text_time = font_game.render(str(info['time']), True, white)
     window.blit(text_time, (400, 10))
     print_card(info['carta'])
-    P1(20,420)
-    P2(120,420)
-    P3(220,420)
-    P4(320,420)
-    P5(420,420)
-    P6(520,420)
-    P7(620,420)
-    P8(720,420)
-    P9(20,510)
-    P10(120,510)
-    P11(220,510)
-    P12(320,510)
+    print_pieces(info['dado'])
+    # P1(20,420)
+    # P2(120,420)
+    # P3(220,420)
+    # P4(320,420)
+    # P5(420,420)
+    # P6(520,420)
+    # P7(620,420)
+    # P8(720,420)
+    # P9(20,510)
+    # P10(120,510)
+    # P11(220,510)
+    # P12(320,510)
     contador()
 
 
