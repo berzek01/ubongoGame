@@ -69,7 +69,9 @@ groupPieces1_Board2 = [piece_L4, piece_q, piece_L]
 groupPieces2_Board2 = [piece_Z, piece_L4, piece_z]
 groupPieces3_Board2 = [piece_L4, piece_q, piece_t]
 groupPieces4_Board2 = [piece_l, piece_q, piece_f]
-
+groupPieces5_Board2 = [piece_l, piece_q, piece_f]
+groupPieces6_Board2 = [piece_l, piece_q, piece_f]
+groupDado_Board2 = [groupPieces1_Board2,groupPieces2_Board2,groupPieces3_Board2,groupPieces4_Board2,groupPieces5_Board2,groupPieces6_Board2]
 # ======================================================================= #
 board3 = [
 	[-1, 0, 0, 0, 0],
@@ -77,12 +79,15 @@ board3 = [
 	[-1, 0, 0, 0, -1],
 	[0, 0, 0, -1, -1]
 ]
+models = [board1,board2,board3]
 
 groupPieces1_Board3 = [piece_L4, piece_q, piece_L]
 groupPieces2_Board3 = [piece_Z, piece_L4, piece_z]
 groupPieces3_Board3 = [piece_L4, piece_q, piece_t]
 groupPieces4_Board3 = [piece_l, piece_q, piece_f]
-
+groupPieces5_Board3 = [piece_l, piece_q, piece_f]
+groupPieces6_Board3 = [piece_l, piece_q, piece_f]
+groupDado_Board3 = [groupPieces1_Board3,groupPieces2_Board3,groupPieces3_Board3,groupPieces4_Board3,groupPieces5_Board3,groupPieces6_Board3]
 # ======================================================================= #
 img12_1 = [
 	[0, 0, -1, -1, -1],
