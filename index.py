@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 import math
-import cards
+from cards import boards, pieces
 
 # CONSTANTES
 WIDTH = 900
@@ -40,8 +40,6 @@ moon_glow = ((235,245,255))
 
 long  = 20
 
-
-reloj = pygame.time.Clock()
 pygame.init()
 window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
@@ -188,58 +186,34 @@ def menu():
 dadoPosX = int((WIDTH - 188) / 2)
 dadoPosY = int((HEIGHT - 177) / 2)
 def print_dado():
-    info['dado'] = str(randint(1,6))
+    info['dado'] = str(randint(0,5))
     dado = pygame.image.load("img/dado/cara" + info['dado'] + ".png").convert_alpha()
     window.blit(dado, (dadoPosX, dadoPosY))
     pygame.display.update()
     contador()
 
 
-# CARDS
-def print_card(num):
-    card = pygame.image.load("img/cards/card" + num + ".png").convert_alpha()
-    card = pygame.transform.scale(card, (520, 290))
-    window.blit(card,(170, 80))
-
-def draw(pieza,x,y):
-    LADO = 25
+def draw(pieza, x, y):
+    LADO = 50
     MARGEN = 1
     filas = len(pieza)
     columnas = len(pieza[0])
-    #colorPieza = getRandomColor()
-    colorPieza = black
     for fila in range(filas):
        for columna in range(columnas):
          if pieza[fila][columna] == 1:
             pygame.draw.rect(window,
-                            colorPieza,
+                            black,
                             [((MARGEN + LADO) * columna + MARGEN)+ x,
                             ((MARGEN + LADO) * fila + MARGEN)+ y,
                             LADO,
                             LADO])
          if pieza[fila][columna] == 0 and -1 in pieza[fila] :
-            color = white
             pygame.draw.rect(window,
-                             color,
+                             white,
                              [((MARGEN + LADO) * columna + MARGEN) + x,
                              ((MARGEN + LADO) * fila + MARGEN) + y,
                              LADO,
                              LADO])
-    reloj.tick(60)
-    pygame.display.flip()
-
-
-def print_pieces(models):
-    model = models[randint(0,2)]
-    valorDado = int(info['dado'])
-    pieces = []
-    if model == models[0]:
-        pieces = cards.groupPieces1_Board1
-    if model == models[1]:
-        pieces = cards.groupDado_Board2[valorDado - 1]
-    if model == models[2]:
-        pieces = cards.groupDado_Board3[valorDado - 1]
-    return pieces, model
 
 # GEMAS
 def print_gema(num, x, y):
@@ -258,7 +232,7 @@ def contador():
         elif info['status'] == 2: # DADO
             info['status'] = 3
             info['time'] = 120
-            info['carta'] = str(randint(1,5))
+            info['carta'] = str(randint(0,len(boards) - 1))
             pygame.time.delay(2000)
     if not info['pause']:
         info['miliseconds'] += 1
@@ -281,37 +255,20 @@ def moverPieza(Piezas):
             else:
                 pieza.setLong(20)
 
-model = []
-myPieces = []
 def puzle():
-    global assing , myPieces , model
     text_level = font_game.render("Turno {}".format(info["turno"]), True, white)
     window.blit(text_level, (10, 10))
     text_time = font_game.render(str(info['time']), True, white)
     window.blit(text_time, (400, 10))
-    print_card(info['carta'])
-    if model == [] and myPieces == []:
-        myPieces, model = print_pieces(cards.models)
-    draw(model,400,200)
-    x = 100;
-    y = 500;
-    for piece in myPieces:
-        draw(piece,x,y)
-        x += 200
-    ##draw(cards.groupPieces1_Board1[1],50,50)
-    #print_pieces(info['dado'])
-    # P1(20,420)
-    # P2(120,420)
-    # P3(220,420)
-    # P4(320,420)
-    # P5(420,420)
-    # P6(520,420)
-    # P7(620,420)
-    # P8(720,420)
-    # P9(20,510)
-    # P10(120,510)
-    # P11(220,510)
-    # P12(320,510)
+
+    board = int(info['carta'])
+    piece = int(info['dado'])
+    x = 50
+    y = 400
+    draw(boards[board], 200, 130)
+    for piece in pieces[board][piece]:
+        draw(piece, x, y)
+        x += 250
     contador()
 
 
@@ -391,7 +348,6 @@ while playing:
     elif info['status'] == 5: # RESULTADO
         resultado()
 
-    # estado = font_game.render(
-    #     "Estado {}".format(info["status"]), True, white)
-    # window.blit(estado, (800, 10))
+    estado = font_game.render("Estado {}".format(info["status"]), True, white)
+    window.blit(estado, (800, 10))
     pygame.display.update()
