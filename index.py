@@ -240,23 +240,23 @@ def puzle():
         if pygame.mouse.get_pressed() == (1, 0, 0):
             x = PositionsX[i]
             y = PositionsY[i]
-            dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
+            dis = math.sqrt((x - m_x+50) ** 2 + (y - m_y+50) ** 2)
             if dis < 50:
-                setPointers(m_x, m_y, i)
-    if pygame.mouse.get_pressed() == (0, 0, 1):
-        if pygame.mouse.get_pressed() == (0, 0, 1):
+                setPointers(m_x-50, m_y-50, i)
+        if pygame.mouse.get_pressed() == (0, 0, 1) or pygame.mouse.get_pressed() == (1, 0, 1):
             x = PositionsX[i]
             y = PositionsY[i]
-            dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
+            dis = math.sqrt((x - m_x+50) ** 2 + (y - m_y+50) ** 2)
             if dis < 50:
                 cards.pieces[card][piece][i] = rotate(cards.pieces[card][piece][i])
-
-        if pygame.mouse.get_pressed() == (0, 1, 0):
+        if pygame.mouse.get_pressed() == (0, 1, 0) or pygame.mouse.get_pressed() == (1, 1, 0):
             x = PositionsX[i]
             y = PositionsY[i]
-            dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
+            dis = math.sqrt((x - m_x+50) ** 2 + (y - m_y+50) ** 2)
             if dis < 50:
                 cards.pieces[card][piece][i] = turn(cards.pieces[card][piece][i])
+
+
     for i in range(len(cards.pieces[card][piece])):
         draw(cards.pieces[card][piece][i], PositionsX[i], PositionsY[i])
 
