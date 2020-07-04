@@ -316,15 +316,23 @@ def puzle():
 
 
 gemasJugador = []
-def gemas_aleatorias():
+def gemas_posicion():
+    gemas = [[2,4,2,4,2,1,4,6,3,6,5,2],
+		[2,1,4,3,2,4,1,2,5,5,4,3],
+		[6,3,1,1,2,2,5,5,6,1,2,3],
+		[1,3,5,5,2,6,5,6,3,6,2,3],
+		[5,4,4,6,3,4,3,4,5,1,5,6],
+		[1,3,1,6,1,4,3,4,6,5,6,1]]
     if not info['printed_gema']:
         info['printed_gema'] = True
-        ngemas = randint(0, 10)
-        for i in range(ngemas):
-            n = randint(1, 15)
-            x = randint(70, 830)
-            y = randint(360, 500)
-            gemasJugador.append((n, (x, y)))
+        y=50
+        for i in gemas:
+            x = 120
+            y += 32
+            for j in i:
+                n = j
+                x += 47
+                gemasJugador.append((n, (x, y)))
     else:
         for i in range(len(gemasJugador)):
             print_gema(gemasJugador[i][0], gemasJugador[i][1][0], gemasJugador[i][1][1])
@@ -337,7 +345,7 @@ def gemas(color1,color2):
     window.blit(text_time, (400, 10))
 
     #Gemas
-    gemas_aleatorias()
+    gemas_posicion()
 
     #Herramientas
     window.blit(tablero,(20,35))
@@ -358,7 +366,7 @@ def resultado():
     pc_resultado = pygame.font.SysFont("Comic Sans MS", 25).render("12 gemas del mismo color", True, white)
     window.blit(pc_resultado, (550, 500))
 
-    gemas_aleatorias()
+    gemas_posicion()
     
 
 
