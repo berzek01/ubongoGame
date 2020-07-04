@@ -251,7 +251,13 @@ def puzle():
             if dis < 50:
                 cards.pieces[card][piece][i] = rotate(cards.pieces[card][piece][i])
                 print(x, y)
-
+        if pygame.mouse.get_pressed() == (0, 1, 0):
+            x = PositionsX[i]
+            y = PositionsY[i]
+            dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
+            if dis < 50:
+                cards.pieces[card][piece][i] = turn(cards.pieces[card][piece][i])
+                print(x, y)
     for i in range(len(cards.pieces[card][piece])):
         draw(cards.pieces[card][piece][i], PositionsX[i], PositionsY[i])
 
