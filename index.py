@@ -243,23 +243,14 @@ def puzle():
             dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
             if dis < 50:
                 setPointers(m_x, m_y, i)
-<<<<<<< HEAD
-    
+
     if pygame.mouse.get_pressed() == (0, 0, 1):
-=======
-                print(x, y)
         if pygame.mouse.get_pressed() == (0, 0, 1):
->>>>>>> 92957fdddca45eb3f95cd1abf3e5bf4f133b998f
             x = PositionsX[i]
             y = PositionsY[i]
             dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
             if dis < 50:
                 cards.pieces[card][piece][i] = rotate(cards.pieces[card][piece][i])
-<<<<<<< HEAD
-=======
-                print(x, y)
-
->>>>>>> 92957fdddca45eb3f95cd1abf3e5bf4f133b998f
 
     for i in range(len(cards.pieces[card][piece])):
         draw(cards.pieces[card][piece][i], PositionsX[i], PositionsY[i])
@@ -314,12 +305,7 @@ def resultado():
     window.blit(pc, (600, 150))
     pc_resultado = pygame.font.SysFont("Comic Sans MS", 25).render("12 gemas del mismo color", True, white)
     window.blit(pc_resultado, (550, 500))
-<<<<<<< HEAD
-    gemas_aleatorias()
-=======
-
     gemas_posicion()
->>>>>>> 92957fdddca45eb3f95cd1abf3e5bf4f133b998f
     
 def copiBoard(carta):
     width = len(carta)
