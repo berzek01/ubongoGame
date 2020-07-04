@@ -1,4 +1,3 @@
-
 # Piepiece_zas
 piece_t = [
     [1,1,1],
@@ -48,6 +47,16 @@ piece_l3 = [
 ]
 
 # ======================================================================= #
+board0 = [
+	[0, 0, 0, 0],
+	[0, 0, 0, 0],
+	[0, 0, 0, 0],
+	[-1, 0, 0, 0]
+]
+
+groupPieces1_Board0 = [piece_l, piece_l2, piece_z, piece_q]
+piecesB0 = [groupPieces1_Board0];
+# ======================================================================= #
 board1 = [
 	[0, 0, 0, 0],
 	[0, 0, 0, 0],
@@ -56,7 +65,7 @@ board1 = [
 ]
 
 groupPieces1_Board1 = [piece_l, piece_l2, piece_z, piece_q]
-
+piecesB1 = [groupPieces1_Board1];
 # ======================================================================= #
 board2 = [
 	[-1, 0, 0, 0, 0],
@@ -71,7 +80,7 @@ groupPieces3_Board2 = [piece_L4, piece_q, piece_t]
 groupPieces4_Board2 = [piece_l, piece_q, piece_f]
 groupPieces5_Board2 = [piece_l, piece_q, piece_f]
 groupPieces6_Board2 = [piece_l, piece_q, piece_f]
-groupDado_Board2 = [groupPieces1_Board2,groupPieces2_Board2,groupPieces3_Board2,groupPieces4_Board2,groupPieces5_Board2,groupPieces6_Board2]
+piecesB2 = [groupPieces1_Board2, groupPieces2_Board2, groupPieces3_Board2, groupPieces4_Board2, groupPieces5_Board2, groupPieces6_Board2];
 # ======================================================================= #
 board3 = [
 	[-1, 0, 0, 0, 0],
@@ -79,7 +88,7 @@ board3 = [
 	[-1, 0, 0, 0, -1],
 	[0, 0, 0, -1, -1]
 ]
-models = [board1,board2,board3]
+
 
 groupPieces1_Board3 = [piece_L4, piece_q, piece_L]
 groupPieces2_Board3 = [piece_Z, piece_L4, piece_z]
@@ -87,25 +96,26 @@ groupPieces3_Board3 = [piece_L4, piece_q, piece_t]
 groupPieces4_Board3 = [piece_l, piece_q, piece_f]
 groupPieces5_Board3 = [piece_l, piece_q, piece_f]
 groupPieces6_Board3 = [piece_l, piece_q, piece_f]
-groupDado_Board3 = [groupPieces1_Board3,groupPieces2_Board3,groupPieces3_Board3,groupPieces4_Board3,groupPieces5_Board3,groupPieces6_Board3]
+piecesB3 = [groupPieces1_Board3, groupPieces2_Board3, groupPieces3_Board3, groupPieces4_Board3, groupPieces5_Board3, groupPieces6_Board3]
 # ======================================================================= #
-img12_1 = [
+board4 = [
 	[0, 0, -1, -1, -1],
 	[0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0]
 ]
 
-groupPieces1_img12_1 = [piece_cuadrado, piece_l, piece_q, piece_L]
-groupPieces2_img12_1 = [piece_f, piece_cunia, piece_L4, piece_t]
-groupPieces3_img12_1 = [piece_cunia, piece_q, piece_cuadrado, piece_L4]
-groupPieces4_img12_1 = [piece_t, piece_f, piece_z, piece_cuadrado]
-groupPieces5_img12_1 = [piece_l, piece_z, piece_L, piece_f]
-groupPieces6_img12_1 = [piece_L, piece_cunia, piece_Z, piece_q]
+groupPieces1_board4 = [piece_cuadrado, piece_l, piece_q, piece_L]
+groupPieces2_board4 = [piece_f, piece_cunia, piece_L4, piece_t]
+groupPieces3_board4 = [piece_cunia, piece_q, piece_cuadrado, piece_L4]
+groupPieces4_board4 = [piece_t, piece_f, piece_z, piece_cuadrado]
+groupPieces5_board4 = [piece_l, piece_z, piece_L, piece_f]
+groupPieces6_board4 = [piece_L, piece_cunia, piece_Z, piece_q]
+piecesB4 = [groupPieces1_board4, groupPieces2_board4, groupPieces3_board4, groupPieces4_board4, groupPieces5_board4, groupPieces6_board4]
 # ======================================================================= #
 
 
-img12_2 = [
+board5 = [
 	[-1, -1, 0, 0, 0],
 	[-1, -1, 0, 0, 0],
 	[-1, -1, 0, 0, 0],
@@ -113,217 +123,44 @@ img12_2 = [
 	[0, 0, 0, 0, 0]
 ]
 
-groupPieces1_img12_2 = [piece_f, piece_l3, piece_cuadrado, piece_L4]
-groupPieces2_img12_2 = [piece_L, piece_q, piece_L4, piece_l3]
-groupPieces3_img12_2 = [piece_cuadrado, piece_f, piece_l3, piece_q]
-groupPieces4_img12_2 = [piece_l, piece_cunia, piece_L4, piece_f]
-groupPieces5_img12_2 = [piece_f, piece_q, piece_l2, piece_L4]
-groupPieces6_img12_2 = [piece_l3, piece_z, piece_Z, piece_q]
+groupPieces1_board5 = [piece_f, piece_l3, piece_cuadrado, piece_L4]
+groupPieces2_board5 = [piece_L, piece_q, piece_L4, piece_l3]
+groupPieces3_board5 = [piece_cuadrado, piece_f, piece_l3, piece_q]
+groupPieces4_board5 = [piece_l, piece_cunia, piece_L4, piece_f]
+groupPieces5_board5 = [piece_f, piece_q, piece_l2, piece_L4]
+groupPieces6_board5 = [piece_l3, piece_z, piece_Z, piece_q]
+piecesB5 = [groupPieces1_board5, groupPieces2_board5, groupPieces3_board5, groupPieces4_board5, groupPieces5_board5, groupPieces6_board5]
 # ======================================================================= #
 
-img12_3=[
+board6=[
 	[-1, 0, 0, 0, -1],
 	[0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0],
 	[0, -1, -1, 0, 0]
 ]
 
-groupPieces1_img12_3 = [piece_l3, piece_L4, piece_t, piece_z]
-groupPieces2_img12_3 = [piece_f, piece_q, piece_l3, piece_cunia]
-groupPieces3_img12_3 = [piece_l3, piece_Z, piece_t, piece_L]
-groupPieces4_img12_3 = [piece_cuadrado, piece_t, piece_l3, piece_f]
-groupPieces5_img12_3 = [piece_L, piece_Z, piece_q, piece_l2]
-groupPieces6_img12_3 = [piece_f, piece_q, piece_l2, piece_L]
+groupPieces1_board6 = [piece_l3, piece_L4, piece_t, piece_z]
+groupPieces2_board6 = [piece_f, piece_q, piece_l3, piece_cunia]
+groupPieces3_board6 = [piece_l3, piece_Z, piece_t, piece_L]
+groupPieces4_board6 = [piece_cuadrado, piece_t, piece_l3, piece_f]
+groupPieces5_board6 = [piece_L, piece_Z, piece_q, piece_l2]
+groupPieces6_board6 = [piece_f, piece_q, piece_l2, piece_L]
+piecesB6 = [groupPieces1_board6, groupPieces2_board6, groupPieces3_board6, groupPieces4_board6, groupPieces5_board6, groupPieces6_board6]
 # ======================================================================= #
 
-board = img12_3
-pieces = groupPieces6_img12_3
-
-#-----CARTAS-----#
-# img4_4i=[[-1,-1,0,-1],
-#         [-1,-1,0,0],
-#         [0,0,0,0],
-#         [0,0,0,0],
-#         [-1,0,0,0],
-#         [-1,0,0,0]]
-# img4_4d=[[-1,-1,0,0,-1],
-#         [-1,-1,0,0,-1],
-#         [-1,-1,0,0,0],
-#         [0,0,0,0,0],
-#         [0,0,0,0,0]]
-# img4_4a=[[-1,0,0,0,0],
-#         [-1,0,0,0,0],
-#         [0,0,0,0,0],
-#         [0,0,-1,0,-1]]
-
-# img8_3i=[[-1,0,0,-1,-1],
-#         [0,0,0,0,-1],
-#         [-1,0,0,0,0],
-#         [-1,0,0,0,-1]]
-# img8_3d=[[-1,-1,0,-1],
-#         [0,0,0,0],
-#         [0,0,0,0],
-#         [0,0,0,0],
-#         [-1,-1,-1,0]]
-# img8_3a=[[-1,0,0,-1,-1],
-#         [-1,0,0,0,-1],
-#         [0,0,0,0,0],
-#         [-1,-1,0,0,0]]
-
-# img12_4i=[[0,0,-1,-1,-1],
-#         [0,0,0,0,0],
-#         [0,0,0,0,0],
-#         [0,0,0,0,0]]
-# img12_4d=[[-1,-1,0,0,0],
-#         [-1,-1,0,0,0],
-#         [-1,-1,0,0,0],
-#         [-1,-1,0,0,0],
-#         [0,0,0,0,0]]
-# img12_4a=[[-1,0,0,0,-1],
-#         [0,0,0,0,0],
-#         [0,0,0,0,0],
-#         [0,-1,-1,0,0]]
-
-# img16_3i=[[0,0,-1,-1],
-#         [0,0,0,-1],
-#         [0,0,0,-1],
-#         [0,0,0,0]]
-# img16_3d=[[-1,0,0,-1,-1],
-#         [0,0,0,-1,-1],
-#         [0,0,0,0,-1],
-#         [-1,0,0,0,0]]
-# img16_3a=[[0,0,0,0],
-#         [0,0,0,0],
-#         [-1,-1,0,0],
-#         [-1,-1,0,-1],
-#         [-1,-1,0,-1]]
-
-# img20_4i=[[-1,-1,-1,0,-1],
-#         [-1,-1,-1,0,-1],
-#         [-1,-1,-1,0,0],
-#         [-1,0,0,0,0],
-#         [0,0,0,0,0],
-#         [0,0,0,0,-1]]
-# img20_4d=[[-1,0,0,0],
-#         [0,0,0,0],
-#         [0,0,0,0],
-#         [-1,0,0,0],
-#         [-1,0,0,-1],
-#         [-1,0,0,-1]]
-# img20_4a=[[0,0,0,0,0],
-#         [0,0,0,0,-1],
-#         [0,0,0,0,-1],
-#         [0,0,0,0,-1],
-#         [-1,0,-1,-1,-1]]
-
-# img24_3i=[[-1,0,-1,-1],
-#         [-1,0,0,-1],
-#         [-1,0,0,0],
-#         [0,0,0,0],
-#         [-1,-1,-1,0]]
-# img24_3d=[[-1,0,0],
-#         [0,0,0],
-#         [0,0,0],
-#         [0,-1,0],
-#         [0,-1,-1]]
-# img24_3a=[[0,0,0,0],
-#         [0,0,0,-1],
-#         [-1,0,0,-1],
-#         [-1,0,0,-1],
-#         [-1,0,-1,-1]]
-
-#-----PIEZAS-----#
-#CARTILLA -- 4
-# pieza1 = [
-#     [1,1,1],
-#     [0,1,0]
-# ]
-# pieza2 = [
-#     [1,1,1],
-#     [1,1,0]
-# ]
-# pieza3 = [
-#     [0,1,1],
-#     [1,1,0]
-# ]
-# pieza4 = [
-#     [1,1,1],
-#     [1,1,0]
-# ]
-# pieza5 = [
-#     [0,1],
-#     [1,1]
-# ]
-# pieza6 = [
-#     [1,1,1],
-#     [1,1,0]
-# ]
-# pieza7 = [
-#     [1,1,1],
-#     [1,1,0]
-# ]
-# pieza8 = [
-#     [1,1]
-# ]
-# pieza9 = [
-#     [1,1,1,1],
-#     [0,1,0,0]
-# ]
-# pieza10 = [
-#     [0,1,1],
-#     [1,1,0]
-# ]
-# pieza11 = [
-#     [1,1,1],
-#     [1,0,0]
-# ]
-# pieza12 = [
-#     [1,1],
-#     [1,1]
-# ]
-# pieza13 = [
-#     [1,1]
-# ]
-# pieza14 = [
-#     [1,1,1,1],
-#     [0,0,0,1]
-# ]
-# pieza15 = [
-#     [1,1,1],
-#     [1,1,0]
-# ]
-# pieza16 = [
-#     [1,1],
-#     [1,1]
-# ]
-# pieza17 = [
-#     [1, 1, 1],
-#     [1, 1, 0]
-# ]
-# pieza18 = [
-#     [1,1,1]
-# ]
-# pieza19 = [
-#     [1, 1, 1, 1],
-#     [0, 1, 0, 0]
-# ]
-# pieza20 = [
-#     [1, 1, 1],
-#     [0, 1, 0]
-# ]
-# pieza21 = [
-#     [1, 1]
-# ]
-# pieza22 = [
-#     [1,1,1]
-# ]
-# pieza23 = [
-#     [0, 1, 1],
-#     [1, 1, 0]
-# ]
-# pieza24 = [
-#     [1, 1, 1],
-#     [1, 0, 0]
-# ]
 
 
+boards = [ 
+	board2, 
+	board3, 
+	board4, 
+	board5, 
+	board6 
+]
+pieces = [
+	piecesB2,
+	piecesB3,
+	piecesB4,
+	piecesB5,
+	piecesB6
+]
