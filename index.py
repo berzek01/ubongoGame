@@ -9,6 +9,8 @@ from config import *
 from helper import *
 machineProcess = None
 
+import cards
+
 def initial():
     #VARIABLES GLOBALES
     data['btn'] = getImage(pygame, "img/btn1.png", True, 240, 60)
@@ -221,29 +223,38 @@ def contador():
         info['miliseconds'] = 0
 
 
-def moverPieza(Piezas):
-    for pieza in Piezas:
-        if pygame.mouse.get_pressed() == (1, 0, 0):
-            pieza.setPush(True)
-            m_x, m_y = pygame.mouse.get_pos()
-            x = pieza.X
-            y = pieza.Y
-            dis = math.sqrt((x + 30 - m_x) ** 2 + (y + 30 - m_y) ** 2)
-            if dis < 50 and pieza.push:
-                pieza.setPoint(m_x - 50, m_y - 20)
-                pieza.setLong(50)
-            else:
-                pieza.setLong(20)
+
+
+PositionsX = [50,300,600,900,1200,1500,1700]
+PositionsY = [400,400,400,400,400,400,400]
+
+def setPointers(x,y,indice):
+    PositionsX[indice] = x
+    PositionsY[indice] = y
 
 def puzle():
     card = int(info['carta'])
     piece = int(info['dado'])
-    x = 50
-    y = 400
-    drawBoard(boards[card], 200, 130)
-    for piece in pieces[card][piece]:
-        draw(piece, x, y)
-        x += 250
+    draw(cards.boards[card], 200, 130)
+
+    for i in range(len(cards.pieces[card][piece])):
+        m_x, m_y = pygame.mouse.get_pos()
+        solto = False
+        if pygame.mouse.get_pressed() == (1, 0, 0) and solto == False:
+            x = PositionsX[i]
+            y = PositionsY[i]
+            dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
+            if dis < 50:
+                setPointers(m_x, m_y, i)
+                print(x, y)
+        solto = True
+        if pygame.mouse.get_pressed() == (0, 0, 0) and solto:
+            solto = True
+
+    for i in range(len(cards.pieces[card][piece])):
+        draw(cards.pieces[card][piece][i], PositionsX[i], PositionsY[i])
+
+
 
 
 gemasJugador = []
