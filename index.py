@@ -220,8 +220,48 @@ def contador():
         info['time'] -= 1
         info['miliseconds'] = 0
 
+def pieceInBoard_player(board, piece, index,x,y):
+    for i in range(len(piece)):
+        if type(piece[i]) != int:
+            for j in range(len(piece[i])):
+                if (x >= len(board) or y >= len(board[0])) or ((board[x][y] != 0) and (piece[i][j] == 1)):
+                    return False
+    for i in range(len(piece)):
+        if type(piece[i]) != int:
+            for j in range(len(piece[i])):
+                board[x][y] = (index + 1) if piece[i][j] != 0 else board[x][y]
+    return True
 
+def pieceInBoardPlayer(board, piece, index,x,y):
+    for left in range(len(board[0])):
+        for up in range(len(board)):
+            if pieceInBoard_player(board, piece, index, x, y):
+                return True
+    return False
 
+def solution_gamer(board, pieces, index,x,y):
+    if (index == len(pieces)):
+        return True
+    for attemp in range(len(pieces) - index):
+        for i in range(4):
+            for j in range(2):
+                if pieceInBoard_player(board, pieces[index], index,x,y):
+                    if solution_gamer(board, pieces, index+1,x,y):
+                        return True
+                    eraseSolution(board, pieces[index], index)
+        piece = pieces.pop(index)
+        pieces.append(piece)
+    return False
+
+def button(board, pieces, index,x_piece,y_piece):
+    pygame.draw.rect(window,green,(600,200,100,50))
+    m_x, m_y = pygame.mouse.get_pos()
+    if pygame.mouse.get_pressed() == (1, 0, 0):
+        x = 600
+        y = 200
+        dis = math.sqrt((x - m_x + 50) ** 2 + (y - m_y + 50) ** 2)
+        if dis < 50 and solution_gamer(board, pieces, index,x_piece,y_piece):
+            printText(pygame, window, "LO LOGRASTE", 20, black, 550, 300)
 
 PositionsX = [50,300,600,900,1200,1500,1700]
 PositionsY = [400,400,400,400,400,400,400]
@@ -255,7 +295,7 @@ def puzle():
             dis = math.sqrt((x - m_x+50) ** 2 + (y - m_y+50) ** 2)
             if dis < 50:
                 cards.pieces[card][piece][i] = turn(cards.pieces[card][piece][i])
-
+        button(cards.boards[card],cards.pieces[card][piece][i],i,PositionsX[i],PositionsY[i])
 
     for i in range(len(cards.pieces[card][piece])):
         draw(cards.pieces[card][piece][i], PositionsX[i], PositionsY[i])
