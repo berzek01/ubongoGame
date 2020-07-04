@@ -1,6 +1,3 @@
-from cards import board
-from cards import pieces
-
 def rotate(piece):
 	piece_rotate = []
 	for j in range(len(piece[0])):
@@ -67,4 +64,9 @@ def solution(board, pieces, index):
 					eraseSolution(board, pieces[index], index)
 		piece = pieces.pop(index)
 		pieces.append(piece)
+	return False
+
+def machineSolution(board, pieces):
+	if solution(board, pieces, 0):
+		return board
 	return False
