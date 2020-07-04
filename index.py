@@ -7,6 +7,7 @@ from cards import boards, pieces
 from colors import *
 from config import *
 from helper import *
+machineProcess = None
 
 def initial():
     #VARIABLES GLOBALES
@@ -42,7 +43,10 @@ def command():
             if event.key == pygame.K_ESCAPE:
                 return False
             if (info['status'] == 3 or info['status'] == 4) and event.key == pygame.K_RETURN:
-                info['pause'] = not info['pause']
+                machine['delay'] = 2000
+                pygame.time.delay(machine['delay'])
+                machine['delay'] = 50
+                # info['pause'] = not info['pause']
             # TEMPORAL
             # if info['status'] == 3 and event.key == pygame.K_p:
             #     info['status'] = 4
@@ -125,6 +129,7 @@ def solution(board, pieces, index):
                 pieces[index] = turn(pieces[index])
                 if pieceInBoard(board, pieces[index], index):
                     if solution(board, pieces, index + 1):
+                        machine['solved'] = True
                         return True
                     eraseSolution(board, pieces[index], index)
         piece = pieces.pop(index)
@@ -209,8 +214,8 @@ def contador():
             machine['boardNumber'] = int(randint(0,len(boards) - 1))
             machine['board'] = boards[machine['boardNumber']]
             pygame.time.delay(2000)
-    if not info['pause']:
-        info['miliseconds'] += 1
+    # if not info['pause']:
+    info['miliseconds'] += 1
     if(info['miliseconds'] == 100):
         info['time'] -= 1
         info['miliseconds'] = 0
@@ -287,10 +292,10 @@ def resultado():
     
 
 def solvePuzle():
+    global machineProcess
     if machine['solved']:
         printText(pygame, window, "Resuelto por la PC", 25, blue, 900, 500)
         return
-    machineProcess = None
     if not machine['process']:
         machine['process'] = True
         card = int(machine['boardNumber'])
@@ -298,9 +303,6 @@ def solvePuzle():
         machine['boardSolution'] = boards[card]
         machineProcess = threading.Thread(target = solution, args = (machine['boardSolution'], pieces[card][piece], 0))
         machineProcess.start()
-    else:
-        if machineProcess == True:
-            machine['solved'] = True
 
 # ==================================================================================== #
 # ==================================== JUEGO ========================================= #
