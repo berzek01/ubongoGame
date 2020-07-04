@@ -46,21 +46,17 @@ def command():
                 return False
             if (info['status'] == 3 or info['status'] == 4) and event.key == pygame.K_RETURN:
                 machine['delay'] = 2000
+                message("Juego pausado, se activará en 2 segundos")
+                pygame.display.update()
                 pygame.time.delay(machine['delay'])
-                machine['delay'] = 50
-                # info['pause'] = not info['pause']
-            # TEMPORAL
-            # if info['status'] == 3 and event.key == pygame.K_p:
-            #     info['status'] = 4
-            # if (info['status'] == 3 or info['status'] == 4) and event.key == pygame.K_t:
-            #     info['turno'] += 1
-            # FIN TEMPORAL
-        
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if data['areaPlay'].collidepoint(event.pos):
-                info['status'] = 2
-            if data['areaTutorial'].collidepoint(event.pos):
-                info['status'] = 11
+                machine['delay'] = 10
+
+        if info['status'] == 1:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if data['areaPlay'].collidepoint(event.pos):
+                    info['status'] = 2
+                if data['areaTutorial'].collidepoint(event.pos):
+                    info['status'] = 11
     return True
 
 
@@ -212,13 +208,15 @@ def contador():
         elif info['status'] == 2: # DADO
             info['status'] = 3
             info['time'] = 120
-            info['carta'] = str(randint(0,len(boards) - 1))
+            player['carta'] = randint(0,len(boards) - 1)
             machine['boardNumber'] = int(randint(0,len(boards) - 1))
+            while machine['boardNumber'] == int(player['carta']):
+                machine['boardNumber'] = int(randint(0,len(boards) - 1))
             machine['board'] = boards[machine['boardNumber']]
             pygame.time.delay(2000)
     # if not info['pause']:
     info['miliseconds'] += 1
-    if(info['miliseconds'] == 100):
+    if(info['miliseconds'] == 10):
         info['time'] -= 1
         info['miliseconds'] = 0
 
@@ -233,23 +231,19 @@ def setPointers(x,y,indice):
     PositionsY[indice] = y
 
 def puzle():
-    card = int(info['carta'])
+    card = int(player['carta'])
     piece = int(info['dado'])
-    draw(cards.boards[card], 200, 130)
+    drawBoard(cards.boards[card], 200, 130)
 
     for i in range(len(cards.pieces[card][piece])):
         m_x, m_y = pygame.mouse.get_pos()
-        solto = False
-        if pygame.mouse.get_pressed() == (1, 0, 0) and solto == False:
+        if pygame.mouse.get_pressed() == (1, 0, 0):
             x = PositionsX[i]
             y = PositionsY[i]
             dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
             if dis < 50:
                 setPointers(m_x, m_y, i)
-                print(x, y)
-        solto = True
-        if pygame.mouse.get_pressed() == (0, 0, 0) and solto:
-            solto = True
+        
 
     for i in range(len(cards.pieces[card][piece])):
         draw(cards.pieces[card][piece][i], PositionsX[i], PositionsY[i])
@@ -272,16 +266,14 @@ def gemas_aleatorias():
             print_gema(gemasJugador[i][0], gemasJugador[i][1][0], gemasJugador[i][1][1])
 
 def gemas():
-    text_level = font_game.render(
-        "Turno {}".format(info["turno"]), True, white)
-    window.blit(text_level, (10, 10))
-    text_time = font_game.render(str(info['time']), True, white)
-    window.blit(text_time, (400, 10))
+    printText(pygame, window, "Turno {}".format(info["turno"]), 20, white, 10, 10)
+    printText(pygame, window, str(info['time']), 20, white, 400, 10)
 
     #Gemas
     gemas_aleatorias()
 
     #Herramientas
+    tablero = getImage(pygame, "img/tableroMejorado.png", True, 850, 300)
     window.blit(tablero,(20,35))
     players()
 
@@ -298,26 +290,61 @@ def resultado():
     window.blit(pc, (600, 150))
     pc_resultado = pygame.font.SysFont("Comic Sans MS", 25).render("12 gemas del mismo color", True, white)
     window.blit(pc_resultado, (550, 500))
-
     gemas_aleatorias()
     
+def copiBoard(carta):
+    width = len(carta)
+    height = len(carta[0])
+    newBoard = [[-1 for _ in range(height)] for _ in range(width)]
+    for x in range(width):
+        for y in range(height):
+            newBoard[x][y] = carta[x][y]
+    return newBoard
 
 def solvePuzle():
     global machineProcess
     if machine['solved']:
-        printText(pygame, window, "Resuelto por la PC", 25, blue, 900, 500)
         return
     if not machine['process']:
         machine['process'] = True
         card = int(machine['boardNumber'])
         piece = int(info['dado'])
-        machine['boardSolution'] = boards[card]
+        newBoard = copiBoard(boards[card])
+        machine['boardCache'] = newBoard
+        machine['boardSolution'] = newBoard
         machineProcess = threading.Thread(target = solution, args = (machine['boardSolution'], pieces[card][piece], 0))
         machineProcess.start()
+
+def verifySolved():
+    if machine['solved']:
+        machine['process'] = False
+        machine['solved'] = False
+        info['status'] = 4
+        info['time'] = 5
+        machine['points'] += 1
+        window.blit(info['background'], (0, 0))
+        printText(pygame, window, "On no :c", 100, black, 190, 50)
+        drawBoard(machine['boardSolution'], 800, 100)
+        printText(pygame, window, "Resuelto por la PC", 30, blue, 900, 10)
+        pygame.display.update()
+        pygame.time.delay(2000)
+        
+    elif player['solved']:
+        machine['process'] = False
+        machine['solved'] = False
+        info['status'] = 4
+        player['points'] += 1
+        message("Felicidades!")
+        pygame.time.delay(5000)
+
 
 # ==================================================================================== #
 # ==================================== JUEGO ========================================= #
 # ==================================================================================== #
+
+def message(text):
+    window.blit(info['background'], (0, 0))
+    printText(pygame, window, text, 100, black, 400, 60)
 
 def game():
     playing = True
@@ -342,13 +369,17 @@ def game():
             puzle()
             solvePuzle()
             contador()
-            if info['time'] % 5 == 0:
+            if info['miliseconds'] % 10 == 0:
+                machine['boardCache'] = copiBoard(machine['boardSolution'])
                 drawBoard(machine['boardSolution'], 800, 100)
             else:
-                drawBoard(machine['board'], 800, 100)
+                drawBoard(machine['boardCache'], 800, 100)
+            print("machine['boardSolution']")
+            print(machine['boardSolution'])
+            verifySolved()
 
         elif info['status'] == 4: # GEMAS
-            gemas(info['colorJ1'], info['colorJ2'])
+            gemas()
             contador()
         elif info['status'] == 5: # RESULTADO
             resultado()

@@ -150,15 +150,13 @@ piecesB6 = [groupPieces1_board6, groupPieces2_board6, groupPieces3_board6, group
 
 
 
-boards = [ 
-	board2, 
+boards = [  
 	board3, 
 	board4, 
 	board5, 
 	board6 
 ]
 pieces = [
-	piecesB2,
 	piecesB3,
 	piecesB4,
 	piecesB5,
