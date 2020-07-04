@@ -243,13 +243,23 @@ def puzle():
             dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
             if dis < 50:
                 setPointers(m_x, m_y, i)
+<<<<<<< HEAD
     
     if pygame.mouse.get_pressed() == (0, 0, 1):
+=======
+                print(x, y)
+        if pygame.mouse.get_pressed() == (0, 0, 1):
+>>>>>>> 92957fdddca45eb3f95cd1abf3e5bf4f133b998f
             x = PositionsX[i]
             y = PositionsY[i]
             dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
             if dis < 50:
                 cards.pieces[card][piece][i] = rotate(cards.pieces[card][piece][i])
+<<<<<<< HEAD
+=======
+                print(x, y)
+
+>>>>>>> 92957fdddca45eb3f95cd1abf3e5bf4f133b998f
 
     for i in range(len(cards.pieces[card][piece])):
         draw(cards.pieces[card][piece][i], PositionsX[i], PositionsY[i])
@@ -258,15 +268,23 @@ def puzle():
 
 
 gemasJugador = []
-def gemas_aleatorias():
+def gemas_posicion():
+    gemas = [[2,4,2,4,2,1,4,6,3,6,5,2],
+		[2,1,4,3,2,4,1,2,5,5,4,3],
+		[6,3,1,1,2,2,5,5,6,1,2,3],
+		[1,3,5,5,2,6,5,6,3,6,2,3],
+		[5,4,4,6,3,4,3,4,5,1,5,6],
+		[1,3,1,6,1,4,3,4,6,5,6,1]]
     if not info['printed_gema']:
         info['printed_gema'] = True
-        ngemas = randint(0, 10)
-        for i in range(ngemas):
-            n = randint(1, 15)
-            x = randint(70, 830)
-            y = randint(360, 500)
-            gemasJugador.append((n, (x, y)))
+        y=50
+        for i in gemas:
+            x = 120
+            y += 32
+            for j in i:
+                n = j
+                x += 47
+                gemasJugador.append((n, (x, y)))
     else:
         for i in range(len(gemasJugador)):
             print_gema(gemasJugador[i][0], gemasJugador[i][1][0], gemasJugador[i][1][1])
@@ -276,7 +294,7 @@ def gemas():
     printText(pygame, window, str(info['time']), 20, white, 400, 10)
 
     #Gemas
-    gemas_aleatorias()
+    gemas_posicion()
 
     #Herramientas
     tablero = getImage(pygame, "img/tableroMejorado.png", True, 850, 300)
@@ -296,7 +314,12 @@ def resultado():
     window.blit(pc, (600, 150))
     pc_resultado = pygame.font.SysFont("Comic Sans MS", 25).render("12 gemas del mismo color", True, white)
     window.blit(pc_resultado, (550, 500))
+<<<<<<< HEAD
     gemas_aleatorias()
+=======
+
+    gemas_posicion()
+>>>>>>> 92957fdddca45eb3f95cd1abf3e5bf4f133b998f
     
 def copiBoard(carta):
     width = len(carta)
