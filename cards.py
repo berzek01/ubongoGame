@@ -262,15 +262,13 @@ groupPieces6_Board15 = [piece_f, piece_q, piece_l2,piece_L]
 piecesB15 = [groupPieces1_Board15, groupPieces2_Board15, groupPieces3_Board15, groupPieces4_Board15, groupPieces5_Board15, groupPieces6_Board15]
 # ======================================================================= #
 
-boards = [ 
-	board2, 
+boards = [  
 	board3, 
 	board4, 
 	board5, 
 	board6 
 ]
 pieces = [
-	piecesB2,
 	piecesB3,
 	piecesB4,
 	piecesB5,

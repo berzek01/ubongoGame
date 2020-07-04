@@ -8,7 +8,6 @@ info['status'] = 1
 info['time'] = 1
 info['miliseconds'] = 0
 info['turno'] = 1
-info['carta'] = 1
 info['printed_gema'] = False
 info['dado'] = None
 info['dadoX'] = int((info['width'] - 188) / 2)
@@ -18,3 +17,9 @@ machine = {}
 machine['process'] = False
 machine['solved'] = False
 machine['delay'] = 10
+machine['points'] = 0
+
+player = {}
+player['carta'] = 1
+player['points'] = 0
+player['solved'] = False
