@@ -16,7 +16,7 @@ info['dadoY'] = int((info['height'] - 177) / 2)
 machine = {}
 machine['process'] = False
 machine['solved'] = False
-machine['delay'] = 5
+machine['delay'] = 10
 machine['points'] = 0
 
 player = {}
